@@ -1,2 +1,1 @@
-# skore-challenge
-The skore challange app
+# ts-clean-architecture-v2
