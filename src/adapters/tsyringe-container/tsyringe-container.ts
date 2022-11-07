@@ -1,7 +1,9 @@
-import { container } from 'tsyringe';
+import { container, DependencyContainer } from 'tsyringe';
 import { Container } from '@/adapters/ports';
 
 export abstract class TSyringeContainer implements Container {
+  public container: DependencyContainer;
+
   abstract loadProviders(): Record<string, any>;
 
   abstract loadConfigs(): Record<string, any>;

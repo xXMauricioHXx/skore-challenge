@@ -2,8 +2,7 @@ module.exports = {
   preset: 'ts-jest',
   globals: {
     'ts-jest': {
-      diagnostics: { ignoreCodes: ['TS6059'] },
-      isolatedModules: true,
+      compiler: 'ttypescript',
     },
   },
   collectCoverage: true,
@@ -12,7 +11,6 @@ module.exports = {
   coverageProvider: 'v8',
   testEnvironment: 'node',
   setupFiles: ['./jest-setup-file.ts'],
-  setupFilesAfterEnv: ['<rootDir>/__tests__/loader.setup.ts'],
   testPathIgnorePatterns: [
     '/build/',
     '/node_modules/',
@@ -20,5 +18,11 @@ module.exports = {
     '/__tests__/(setup|helpers|factories|store)/',
   ],
   resetMocks: true,
-  testMatch: ['**/?(*.)+(test).ts'],
+  testMatch: ['**/?(*.)+(spec).ts'],
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/$1',
+  },
+  transform: {
+    '.(ts)': 'ts-jest',
+  },
 };

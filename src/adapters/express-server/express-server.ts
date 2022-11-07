@@ -9,7 +9,7 @@ import Joi from 'joi';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import { container, InjectionToken } from 'tsyringe';
+import { container, DependencyContainer, InjectionToken } from 'tsyringe';
 import {
   HttpResponse,
   HttpRequest,
@@ -18,11 +18,18 @@ import {
   Controller,
 } from '@/presentation/http/ports';
 import logger from '@/logger';
+import { Server } from 'http';
 import { env } from '@/main/env';
 import { ErrorHandlerMiddleware } from '@/adapters/express-server';
 
 export abstract class ExpressServer {
   protected abstract loadControllers(): Function[];
+  public container: DependencyContainer;
+  public server: Server;
+
+  public getServer(): Server {
+    return this.server;
+  }
 
   protected buildRoutes(router: Router): Router {
     this.loadControllers().forEach((controller: Function) => {
@@ -158,7 +165,7 @@ export abstract class ExpressServer {
     };
   }
 
-  start(): void {
+  public start(): void {
     const app = express();
     const router = Router({ mergeParams: true });
     const buildedRoutes = this.buildRoutes(router);
@@ -203,7 +210,8 @@ export abstract class ExpressServer {
       }
     );
     app.use(errorHandler);
-    app.listen(env.httpPort, () =>
+
+    this.server = app.listen(env.httpPort, () =>
       logger.info(`Server running on port ${env.httpPort}`)
     );
   }
