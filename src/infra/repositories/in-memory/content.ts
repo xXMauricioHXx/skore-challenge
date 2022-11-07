@@ -15,16 +15,23 @@ export class ContentInMemoryRepository implements ContentRepository {
     },
   ];
 
-  create(
+  async create(
     data: ContentRepository.CreateParams
   ): Promise<ContentRepository.Model> {
-    const payment = {
+    const latestContent = this.contents[this.contents.length - 1];
+
+    const content = {
+      id: latestContent.id + 1,
       ...data,
       createdAt: new Date(),
       updatedAt: new Date(),
     } as ContentRepository.Model;
 
-    this.contents.push(payment);
-    return Promise.resolve(payment);
+    this.contents.push(content);
+    return content;
+  }
+
+  async findAll(): Promise<ContentRepository.Model[]> {
+    return this.contents;
   }
 }

@@ -21,4 +21,6 @@ export interface ContentRepository {
   create(
     data: ContentRepository.CreateParams
   ): Promise<ContentRepository.Model>;
+
+  findAll(): Promise<ContentRepository.Model[]>;
 }

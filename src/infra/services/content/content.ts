@@ -17,4 +17,8 @@ export class ContentServiceProvider implements ContentService {
       type: data.type,
     });
   }
+
+  findAllContent(): Promise<ContentService.FindAllResult> {
+    return this.contentRepository.findAll();
+  }
 }
