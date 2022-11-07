@@ -2,7 +2,7 @@ import { ContentType } from '@/domain/entities/content';
 
 export namespace ContentRepository {
   export type Model = {
-    id: string;
+    id: number;
     name: string;
     description: string;
     type: ContentType;

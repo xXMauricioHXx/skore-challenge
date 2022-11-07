@@ -18,6 +18,7 @@ const setup = () => {
 describe('CreateContentUseCase', () => {
   describe('#execute', () => {
     it('should create content with success', async () => {
+      const now = new Date();
       const data = {
         name: 'test',
         description: 'Test',
@@ -26,8 +27,8 @@ describe('CreateContentUseCase', () => {
       const content = {
         id: 1,
         ...data,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: now,
+        updatedAt: now,
       };
 
       const { sut, dependencies } = setup();

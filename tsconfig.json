@@ -3,7 +3,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist/src",
-    "rootDir": "./src",
+    "rootDir": "src",
     "module": "commonjs",
     "target": "es2020",
     "esModuleInterop": true,
@@ -12,7 +12,7 @@
     "useUnknownInCatchVariables": false,
     "lib": ["es2020"],
     "emitDecoratorMetadata": true,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
     },

@@ -54,7 +54,7 @@ export class CreateContentController extends Controller {
 
 export namespace CreateContentController {
   export type Response = {
-    id: string;
+    id: number;
     name: string;
     description: string;
     type: ContentType;

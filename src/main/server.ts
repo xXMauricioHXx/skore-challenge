@@ -1,7 +1,7 @@
 import 'module-alias/register';
-import { ValidationError } from 'class-validator';
 import logger from '@/logger';
 import { Application } from '@/main/app';
+import { ValidationError } from 'class-validator';
 
 const application = new Application();
 

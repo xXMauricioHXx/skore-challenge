@@ -10,12 +10,3 @@ services:
       - MYSQL_DATABASE=${DB_SCHEMA}
     ports:
       - '3305:3306'
-  redis:
-    image: 'redis:alpine'
-    container_name: 'redis-server'
-    command: redis-server
-    ports:
-      - '6379:6379'
-    environment:
-      - REDIS_REPLICATION_MODE=master
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
