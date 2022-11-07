@@ -1,8 +1,10 @@
 import { createMock } from 'ts-auto-mock';
-import { HttpRequest } from '@/presentation/http/ports';
-import { FindContentById } from '@/domain/usecases/find-content-by-id';
-import { FindContentByIdController } from '@/presentation/http/controllers/find-content-by-id/find-content-by-id';
 import { ContentType } from '@/domain/entities/content';
+import { HttpRequest } from '@/presentation/http/ports';
+import { NotFoundError } from '@/presentation/http/exceptions';
+import { FindContentById } from '@/domain/usecases/find-content-by-id';
+import { ContentNotFoundError } from '@/domain/exceptions/content-not-found';
+import { FindContentByIdController } from '@/presentation/http/controllers/find-content-by-id/find-content-by-id';
 
 const setup = () => {
   const findContentByIdUseCase = createMock<FindContentById>();
@@ -49,6 +51,20 @@ describe('FindContentByIdController', () => {
         created_at: content.createdAt.toISOString(),
         updated_at: content.updatedAt.toISOString(),
       });
+    });
+  });
+  describe('#exception', () => {
+    it('should return not found error when error is instance of ContentNotFoundError', () => {
+      const { sut } = setup();
+
+      const result = sut.exception(new ContentNotFoundError());
+
+      expect(result).toEqual(
+        new NotFoundError(
+          'CONTENT_NOT_FOUND',
+          'Content does not exist or not found.'
+        )
+      );
     });
   });
 });
