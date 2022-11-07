@@ -23,4 +23,6 @@ export interface ContentRepository {
   ): Promise<ContentRepository.Model>;
 
   findAll(): Promise<ContentRepository.Model[]>;
+
+  findById(id: number): Promise<ContentRepository.Model | null>;
 }

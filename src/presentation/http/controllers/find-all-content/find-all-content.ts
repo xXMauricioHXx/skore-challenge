@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 import { get } from '@/shared/decorators';
 import { ContentType } from '@/domain/entities/content';
-import { FindAllContent } from '@/domain/usecases/find-all-content';
 import { Controller, HttpResponse } from '@/presentation/http/ports';
-import { FindAllContentPresentation } from '@/presentation/http/controllers/find-all-content/find-all-content.presentation';
+import { FindAllContent } from '@/domain/usecases/find-all-content';
+import { FindAllContentPresenter } from '@/presentation/http/controllers/find-all-content/find-all-content.presenter';
 
 @injectable()
 @get('/content')
@@ -19,7 +19,7 @@ export class FindAllContentController extends Controller {
     const contents = await this.findAllContentUseCase.execute();
 
     return {
-      data: FindAllContentPresentation.toJSON(contents),
+      data: FindAllContentPresenter.toJSON(contents),
     };
   }
 

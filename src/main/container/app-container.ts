@@ -4,12 +4,14 @@ import { ContentInMemoryRepository } from '@/infra/repositories/in-memory/conten
 import { TypeOrmConnection } from '@/adapters/typeorm-connection/typeorm-connection';
 import { CreateContentUseCase } from '@/application/usecases/create-content/create-content';
 import { FindAllContentUseCase } from '@/application/usecases/find-all-content/find-all-content';
+import { FindContentByIdUseCase } from '@/application/usecases/find-content-by-id/find-content-by-id';
 
 export class AppContainer extends TSyringeContainer {
   loadProviders(): Record<string, any> {
     return {
       CreateContent: CreateContentUseCase,
       FindAllContent: FindAllContentUseCase,
+      FindContentById: FindContentByIdUseCase,
       ContentService: ContentServiceProvider,
       ContentRepository: ContentInMemoryRepository,
     };

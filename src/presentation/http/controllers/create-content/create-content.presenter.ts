@@ -2,7 +2,7 @@ import { ContentType } from '@/domain/entities/content';
 import { CreateContent } from '@/domain/usecases/create-content';
 import { CreateContentController } from '@/presentation/http/controllers/create-content/create-content';
 
-export class CreateContentPresentation {
+export class CreateContentPresenter {
   static toJSON(data: CreateContent.Result): CreateContentController.Response {
     return {
       id: data.id,

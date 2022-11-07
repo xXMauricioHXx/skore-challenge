@@ -34,4 +34,8 @@ export class ContentInMemoryRepository implements ContentRepository {
   async findAll(): Promise<ContentRepository.Model[]> {
     return this.contents;
   }
+
+  async findById(id: number): Promise<ContentRepository.Model | null> {
+    return this.contents.find(content => content.id === id) || null;
+  }
 }

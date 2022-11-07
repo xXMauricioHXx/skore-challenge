@@ -6,7 +6,7 @@ import { CreateContent } from '@/domain/usecases/create-content';
 import { BadRequest } from '@/presentation/http/exceptions/bad-request';
 import { InvalidContentTypeError } from '@/domain/exceptions/invalid-content-type';
 import { createContentSchema } from '@/presentation/http/controllers/create-content/create-content.schema';
-import { CreateContentPresentation } from '@/presentation/http/controllers/create-content/create-content.presentation';
+import { CreateContentPresenter } from '@/presentation/http/controllers/create-content/create-content.presenter';
 import {
   Controller,
   HttpRequest,
@@ -31,11 +31,11 @@ export class CreateContentController extends Controller {
     const data = req.body as CreateContentController.Request;
 
     const createdPayment = await this.createContentUseCase.execute(
-      CreateContentPresentation.toUseCase(data)
+      CreateContentPresenter.toUseCase(data)
     );
 
     return {
-      data: CreateContentPresentation.toJSON(createdPayment),
+      data: CreateContentPresenter.toJSON(createdPayment),
     };
   }
 

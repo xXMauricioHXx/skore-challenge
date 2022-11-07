@@ -62,4 +62,29 @@ describe('ContentServiceProvider', () => {
       ]);
     });
   });
+  describe('#findContentById', () => {
+    it('should return content by id', async () => {
+      const id = 1;
+      const { sut } = setup();
+
+      const result = await sut.findContentById(id);
+
+      expect(result).toEqual({
+        id: 1,
+        name: 'test',
+        description: 'Teste',
+        type: ContentType.IMAGE,
+        createdAt: now,
+        updatedAt: now,
+      });
+    });
+    it('should return null when content is not found', async () => {
+      const id = 2;
+      const { sut } = setup();
+
+      const result = await sut.findContentById(id);
+
+      expect(result).toEqual(null);
+    });
+  });
 });

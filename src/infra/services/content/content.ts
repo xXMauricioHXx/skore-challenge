@@ -21,4 +21,8 @@ export class ContentServiceProvider implements ContentService {
   findAllContent(): Promise<ContentService.FindAllResult> {
     return this.contentRepository.findAll();
   }
+
+  findContentById(id: number): Promise<ContentService.FindById | null> {
+    return this.contentRepository.findById(id);
+  }
 }
