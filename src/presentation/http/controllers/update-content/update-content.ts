@@ -6,6 +6,7 @@ import { UpdateContent } from '@/domain/usecases/update-content';
 import { InvalidContentTypeError } from '@/domain/exceptions/invalid-content-type';
 import { updateContentSchema } from '@/presentation/http/controllers/update-content/update-content.schema';
 import { UpdateContentPresenter } from '@/presentation/http/controllers/update-content/update-content.presenter';
+import { AssertAdminAuthenticationMiddleware } from '@/presentation/http/middlewares/assert-admin-authentication';
 import {
   Controller,
   HttpRequest,
@@ -13,7 +14,7 @@ import {
 } from '@/presentation/http/ports';
 
 @injectable()
-@put('/content/:id')
+@put('/content/:id', [AssertAdminAuthenticationMiddleware])
 export class UpdateContentController extends Controller {
   constructor(
     @inject('UpdateContent')

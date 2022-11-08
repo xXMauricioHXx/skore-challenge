@@ -7,6 +7,7 @@ import { BadRequest } from '@/presentation/http/exceptions/bad-request';
 import { InvalidContentTypeError } from '@/domain/exceptions/invalid-content-type';
 import { createContentSchema } from '@/presentation/http/controllers/create-content/create-content.schema';
 import { CreateContentPresenter } from '@/presentation/http/controllers/create-content/create-content.presenter';
+import { AssertAdminAuthenticationMiddleware } from '@/presentation/http/middlewares/assert-admin-authentication';
 import {
   Controller,
   HttpRequest,
@@ -14,7 +15,7 @@ import {
 } from '@/presentation/http/ports';
 
 @injectable()
-@post('/content')
+@post('/content', [AssertAdminAuthenticationMiddleware])
 export class CreateContentController extends Controller {
   constructor(
     @inject('CreateContent')

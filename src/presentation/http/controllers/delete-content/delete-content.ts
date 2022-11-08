@@ -3,9 +3,10 @@ import { del, httpStatus, schema } from '@/shared/decorators';
 import { DeleteContent } from '@/domain/usecases/delete-content';
 import { Controller, HttpRequest } from '@/presentation/http/ports';
 import { deleteSchema } from '@/presentation/http/controllers/delete-content/delete-content.schema';
+import { AssertAdminAuthenticationMiddleware } from '@/presentation/http/middlewares/assert-admin-authentication';
 
 @injectable()
-@del('/content/:id')
+@del('/content/:id', [AssertAdminAuthenticationMiddleware])
 export class DeleteContentController extends Controller {
   constructor(
     @inject('DeleteContent')

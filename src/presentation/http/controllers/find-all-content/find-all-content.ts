@@ -3,10 +3,11 @@ import { get } from '@/shared/decorators';
 import { ContentType } from '@/domain/entities/content';
 import { Controller, HttpResponse } from '@/presentation/http/ports';
 import { FindAllContent } from '@/domain/usecases/find-all-content';
+import { AuthenticationMiddleware } from '@/presentation/http/middlewares/authentication';
 import { FindAllContentPresenter } from '@/presentation/http/controllers/find-all-content/find-all-content.presenter';
 
 @injectable()
-@get('/content')
+@get('/content', [AuthenticationMiddleware])
 export class FindAllContentController extends Controller {
   constructor(
     @inject('FindAllContent')

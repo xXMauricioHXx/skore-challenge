@@ -1,15 +1,12 @@
 import Joi from 'joi';
+import { User } from '@/domain/entities/user';
 
 export type HttpRequest = {
   body?: any;
   params: any;
   query?: any;
   headers?: any;
-  user?: {
-    username: string;
-    emailAddress: string;
-    name: string;
-  };
+  user?: User;
 };
 
 export type HttpResponse<T = any> = {
