@@ -4,9 +4,8 @@
   "description": "The skore challenge project",
   "main": "index.js",
   "scripts": {
-    "test:unit": "nyc mocha --timeout 10000 --exit --config=.mocha.yml -r tsconfig-paths/register \"src/**/*.spec.ts\"",
     "dev": "tsnd --respawn --ignore-watch node_modules -r tsconfig-paths/register ./src/main/server.ts",
-    "test:dev": "jest --runInBand --config=jest.config.js",
+    "test:unit": "jest --runInBand --config=jest.config.js",
     "migration:generate": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:generate -d src/adapters/typeorm-connection/ormconfig.ts",
     "migration:latest": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d src/adapters/typeorm-connection/ormconfig.ts",
     "migration:rollback": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:revert -d src/adapters/typeorm-connection/ormconfig.ts"

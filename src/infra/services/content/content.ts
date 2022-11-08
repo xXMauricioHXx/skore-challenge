@@ -25,4 +25,8 @@ export class ContentServiceProvider implements ContentService {
   findContentById(id: number): Promise<ContentService.FindById | null> {
     return this.contentRepository.findById(id);
   }
+
+  async deleteContent(id: number): Promise<void> {
+    await this.contentRepository.deleteById(id);
+  }
 }

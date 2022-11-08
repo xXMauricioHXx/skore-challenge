@@ -38,4 +38,8 @@ export class ContentInMemoryRepository implements ContentRepository {
   async findById(id: number): Promise<ContentRepository.Model | null> {
     return this.contents.find(content => content.id === id) || null;
   }
+
+  async deleteById(id: number): Promise<void> {
+    this.contents = this.contents.filter(content => content.id !== id);
+  }
 }

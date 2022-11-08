@@ -11,4 +11,5 @@ export interface ContentService {
   createContent(data: Content): Promise<ContentService.CreateResult>;
   findAllContent(): Promise<ContentService.FindAllResult>;
   findContentById(id: number): Promise<ContentService.FindById | null>;
+  deleteContent(id: number): Promise<void>;
 }

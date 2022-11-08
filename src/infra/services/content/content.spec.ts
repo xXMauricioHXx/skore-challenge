@@ -1,6 +1,6 @@
 import { Content, ContentType } from '@/domain/entities/content';
+import { ContentServiceProvider } from '@/infra/services/content/content';
 import { ContentInMemoryRepository } from '@/infra/repositories/in-memory/content';
-import { ContentServiceProvider } from './content';
 
 const setup = () => {
   const contentRepository = new ContentInMemoryRepository();
@@ -85,6 +85,17 @@ describe('ContentServiceProvider', () => {
       const result = await sut.findContentById(id);
 
       expect(result).toEqual(null);
+    });
+  });
+  describe('#deleteContent', () => {
+    it('should delete content by id', async () => {
+      const id = 1;
+      const { sut } = setup();
+
+      await sut.deleteContent(id);
+      const result = await sut.findAllContent();
+
+      expect(result.length).toEqual(0);
     });
   });
 });

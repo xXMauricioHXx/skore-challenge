@@ -21,8 +21,7 @@ export interface ContentRepository {
   create(
     data: ContentRepository.CreateParams
   ): Promise<ContentRepository.Model>;
-
   findAll(): Promise<ContentRepository.Model[]>;
-
   findById(id: number): Promise<ContentRepository.Model | null>;
+  deleteById(id: number): Promise<void>;
 }
