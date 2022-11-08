@@ -4,6 +4,7 @@ import { ContentInMemoryRepository } from '@/infra/repositories/in-memory/conten
 import { TypeOrmConnection } from '@/adapters/typeorm-connection/typeorm-connection';
 import { CreateContentUseCase } from '@/application/usecases/create-content/create-content';
 import { DeleteContentUseCase } from '@/application/usecases/delete-content/delete-content';
+import { UpdateContentUseCase } from '@/application/usecases/update-content/update-content';
 import { FindAllContentUseCase } from '@/application/usecases/find-all-content/find-all-content';
 import { FindContentByIdUseCase } from '@/application/usecases/find-content-by-id/find-content-by-id';
 
@@ -14,6 +15,7 @@ export class AppContainer extends TSyringeContainer {
       FindAllContent: FindAllContentUseCase,
       FindContentById: FindContentByIdUseCase,
       DeleteContent: DeleteContentUseCase,
+      UpdateContent: UpdateContentUseCase,
       ContentService: ContentServiceProvider,
       ContentRepository: ContentInMemoryRepository,
     };

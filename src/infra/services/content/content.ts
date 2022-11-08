@@ -22,11 +22,22 @@ export class ContentServiceProvider implements ContentService {
     return this.contentRepository.findAll();
   }
 
-  findContentById(id: number): Promise<ContentService.FindById | null> {
+  findContentById(id: number): Promise<ContentService.FindByIdResult | null> {
     return this.contentRepository.findById(id);
   }
 
   async deleteContent(id: number): Promise<void> {
     await this.contentRepository.deleteById(id);
+  }
+
+  updateContent(
+    id: number,
+    data: Content
+  ): Promise<ContentService.UpdateResult> {
+    return this.contentRepository.update(id, {
+      ...(data.description && { description: data.description }),
+      ...(data.name && { name: data.name }),
+      ...(data.type && { type: data.type }),
+    });
   }
 }

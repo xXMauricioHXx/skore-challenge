@@ -42,4 +42,11 @@ export class ContentInMemoryRepository implements ContentRepository {
   async deleteById(id: number): Promise<void> {
     this.contents = this.contents.filter(content => content.id !== id);
   }
+
+  async update(
+    id: number,
+    data: Partial<ContentRepository.Model>
+  ): Promise<ContentRepository.Model> {
+    return this.contents[0];
+  }
 }

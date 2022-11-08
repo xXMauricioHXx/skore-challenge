@@ -97,5 +97,23 @@ describe('ContentServiceProvider', () => {
 
       expect(result.length).toEqual(0);
     });
+    describe('#updateContent', () => {
+      it('should update content with success', async () => {
+        const { sut } = setup();
+        const id = 1;
+        const content = new Content({ name: 'test' });
+
+        const result = await sut.updateContent(id, content);
+
+        expect(result).toEqual({
+          id: 1,
+          name: 'test',
+          description: 'Teste',
+          type: ContentType.IMAGE,
+          createdAt: now,
+          updatedAt: now,
+        });
+      });
+    });
   });
 });

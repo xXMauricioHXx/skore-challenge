@@ -24,4 +24,8 @@ export interface ContentRepository {
   findAll(): Promise<ContentRepository.Model[]>;
   findById(id: number): Promise<ContentRepository.Model | null>;
   deleteById(id: number): Promise<void>;
+  update(
+    id: number,
+    data: Partial<ContentRepository.Model>
+  ): Promise<ContentRepository.Model>;
 }
