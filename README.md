@@ -8,14 +8,16 @@
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e [Typescript](https://www.typescriptlang.org/).
-Você pode utilizar o [Docker](https://www.docker.com/) para o banco de dados ou usar um banco de dados local
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-## 📦 ## 📦 Instalando o projeto
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
+
+Você pode utilizar o [Docker](https://www.docker.com/) para rodar o projeto em um container ou somente usar o [Docker](https://www.docker.com/) para rodar o banco de dados em um container.
+
+## 📦 Instalando o projeto
 
 Você pode optar por rodar o somente o banco em um container Docker ou rodar toda a aplicação.
 
-Caso você quira rodar somente o banco, basta abrir o terminal e rodar:
+Caso você queira rodar somente o banco, basta abrir o terminal e rodar:
 
 ```bash
 # Clone este repositório
@@ -38,7 +40,7 @@ $ npm run dev
 
 ```
 
-Se você quer rodar a aplicação em container, abra o terminal e rode:
+Se você quer rodar toda a aplicação em container, abra o terminal e rode:
 
 ```bash
 # Clone este repositório
