@@ -26,6 +26,11 @@ export class FindContentByIdUseCase implements FindContentById {
 
     if (!isViwed) {
       await this.contentViewService.registerView(id, userId);
+
+      return {
+        ...content,
+        views: content.views + 1,
+      };
     }
 
     return content;

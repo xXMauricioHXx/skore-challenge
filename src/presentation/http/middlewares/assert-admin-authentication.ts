@@ -19,14 +19,11 @@ export class AssertAdminAuthenticationMiddleware implements Middleware {
 
     try {
       const decodedToken = await jwt.verify(replacedUserInfo, env.jwtSecret);
-      const { email, levelPermission, name, id } =
-        decodedToken as Partial<User>;
+      const { levelPermission, id } = decodedToken as Partial<User>;
 
       const user = new User({
         id,
-        email: email,
         levelPermission,
-        name,
       });
 
       if (!user.checkUserIsAdmin()) {

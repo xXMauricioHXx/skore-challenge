@@ -19,14 +19,11 @@ export class AuthenticationMiddleware implements Middleware {
 
     try {
       const decodedToken = await jwt.verify(replacedUserInfo, env.jwtSecret);
-      const { email, levelPermission, name, id } =
-        decodedToken as Partial<User>;
+      const { levelPermission, id } = decodedToken as Partial<User>;
 
       req.user = new User({
         id,
-        email: email,
         levelPermission,
-        name,
       });
     } catch (err) {
       throw new AuthenticationError();

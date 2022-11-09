@@ -5,8 +5,6 @@ export enum UserLevelPermission {
 
 export class User {
   public readonly id: number;
-  public readonly name: string;
-  public readonly email: string;
   public readonly levelPermission: UserLevelPermission;
 
   constructor(props: Partial<User>) {
