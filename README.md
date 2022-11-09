@@ -72,6 +72,7 @@ $ npm run dev
 ```
 
 Ao final da instalação basta acessar http://localhost:3000/content para acessar a listagem de conteúdos.
+Para acessar a documentação completa da api basta acessar http://localhost:3000/swagger-ui
 
 ### 🛠 Tecnologias
 
