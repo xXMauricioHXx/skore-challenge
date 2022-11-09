@@ -1,7 +1,9 @@
 import { TSyringeContainer } from '@/adapters';
 import { ContentServiceProvider } from '@/infra/services/content/content';
-import { ContentInMemoryRepository } from '@/infra/repositories/in-memory/content';
+import { ContentMySQLRepository } from '@/infra/repositories/mysql/content';
 import { TypeOrmConnection } from '@/adapters/typeorm-connection/typeorm-connection';
+import { ContentViewMySQLRepository } from '@/infra/repositories/mysql/content-view';
+import { ContentViewServiceProvider } from '@/infra/services/content-view/content-view';
 import { CreateContentUseCase } from '@/application/usecases/create-content/create-content';
 import { DeleteContentUseCase } from '@/application/usecases/delete-content/delete-content';
 import { UpdateContentUseCase } from '@/application/usecases/update-content/update-content';
@@ -17,7 +19,9 @@ export class AppContainer extends TSyringeContainer {
       DeleteContent: DeleteContentUseCase,
       UpdateContent: UpdateContentUseCase,
       ContentService: ContentServiceProvider,
-      ContentRepository: ContentInMemoryRepository,
+      ContentViewService: ContentViewServiceProvider,
+      ContentRepository: ContentMySQLRepository,
+      ContentViewRepository: ContentViewMySQLRepository,
     };
   }
 

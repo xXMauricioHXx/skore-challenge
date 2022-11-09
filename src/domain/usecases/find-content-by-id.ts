@@ -5,5 +5,5 @@ export namespace FindContentById {
 }
 
 export interface FindContentById {
-  execute(id: number): Promise<FindContentById.Result>;
+  execute(id: number, userId: number): Promise<FindContentById.Result>;
 }

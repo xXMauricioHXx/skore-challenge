@@ -12,6 +12,7 @@ export class FindAllContentPresenter {
       type: content.type,
       created_at: content.createdAt.toISOString(),
       updated_at: content.updatedAt.toISOString(),
+      views: content.views,
     }));
   }
 }

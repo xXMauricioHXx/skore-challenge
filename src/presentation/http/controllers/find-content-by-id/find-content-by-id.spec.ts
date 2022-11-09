@@ -5,6 +5,7 @@ import { NotFoundError } from '@/presentation/http/exceptions';
 import { FindContentById } from '@/domain/usecases/find-content-by-id';
 import { ContentNotFoundError } from '@/domain/exceptions/content-not-found';
 import { FindContentByIdController } from '@/presentation/http/controllers/find-content-by-id/find-content-by-id';
+import { User } from '@/domain/entities/user';
 
 const setup = () => {
   const findContentByIdUseCase = createMock<FindContentById>();
@@ -25,6 +26,7 @@ describe('FindContentByIdController', () => {
         params: {
           id: 1,
         },
+        user: new User({ id: 1 }),
       } as HttpRequest;
       const content = {
         id: 1,
@@ -33,6 +35,7 @@ describe('FindContentByIdController', () => {
         type: ContentType.IMAGE,
         createdAt: now,
         updatedAt: now,
+        views: 1,
       };
 
       const { sut, dependencies } = setup();
@@ -50,6 +53,7 @@ describe('FindContentByIdController', () => {
         type: content.type,
         created_at: content.createdAt.toISOString(),
         updated_at: content.updatedAt.toISOString(),
+        views: 1,
       });
     });
   });

@@ -27,8 +27,10 @@ export class FindContentByIdController extends Controller {
   async handle(
     req: HttpRequest
   ): Promise<HttpResponse<FindContentByIdController.Response>> {
+    const user = req.user!;
     const { id } = req.params as FindContentByIdController.Request;
-    const content = await this.findContentByIdUseCase.execute(id);
+
+    const content = await this.findContentByIdUseCase.execute(id, user.id);
 
     return {
       data: FindContentByIdPresenter.toJSON(content),
@@ -53,6 +55,7 @@ export namespace FindContentByIdController {
     type: ContentType;
     created_at: string;
     updated_at: string;
+    views: number;
   };
 
   export type Request = {

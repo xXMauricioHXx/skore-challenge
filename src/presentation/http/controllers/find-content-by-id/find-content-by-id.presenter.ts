@@ -12,6 +12,7 @@ export class FindContentByIdPresenter {
       type: data.type,
       created_at: data.createdAt.toISOString(),
       updated_at: data.updatedAt.toISOString(),
+      views: data.views,
     };
   }
 }

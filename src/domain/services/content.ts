@@ -3,8 +3,10 @@ import { ContentRepository } from '@/domain/repositories/content';
 
 export namespace ContentService {
   export type CreateResult = ContentRepository.Model;
-  export type FindAllResult = ContentRepository.Model[];
-  export type FindByIdResult = ContentRepository.Model;
+  export type FindAllResult = Array<
+    ContentRepository.Model & { views: number }
+  >;
+  export type FindByIdResult = ContentRepository.Model & { views: number };
   export type UpdateResult = ContentRepository.Model;
 }
 

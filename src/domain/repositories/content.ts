@@ -6,6 +6,7 @@ export namespace ContentRepository {
     name: string;
     description: string;
     type: ContentType;
+    views?: number;
     createdAt: Date;
     updatedAt: Date;
   };

@@ -26,6 +26,7 @@ describe('FindAllContentController', () => {
           type: ContentType.IMAGE,
           createdAt: now,
           updatedAt: now,
+          views: 1,
         },
       ];
       const [content] = contents;
@@ -46,6 +47,7 @@ describe('FindAllContentController', () => {
           type: content.type,
           created_at: content.createdAt.toISOString(),
           updated_at: content.updatedAt.toISOString(),
+          views: 1,
         },
       ]);
       expect(dependencies.findAllContentUseCase.execute).toBeCalled();

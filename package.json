@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsnd --respawn --ignore-watch node_modules -r tsconfig-paths/register ./src/main/server.ts",
     "test:unit": "jest --runInBand --config=jest.config.js",
+    "typeorm": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm",
     "migration:generate": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:generate -d src/adapters/typeorm-connection/ormconfig.ts",
     "migration:latest": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d src/adapters/typeorm-connection/ormconfig.ts",
     "migration:rollback": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:revert -d src/adapters/typeorm-connection/ormconfig.ts"

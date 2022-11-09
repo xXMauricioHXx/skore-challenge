@@ -37,6 +37,7 @@ export namespace FindAllContentController {
     type: ContentType;
     created_at: string;
     updated_at: string;
+    views: number;
   };
 
   export type Response = Content[];

@@ -19,11 +19,15 @@ export class ContentServiceProvider implements ContentService {
   }
 
   findAllContent(): Promise<ContentService.FindAllResult> {
-    return this.contentRepository.findAll();
+    return this.contentRepository.findAll() as Promise<ContentService.FindAllResult>;
   }
 
-  findContentById(id: number): Promise<ContentService.FindByIdResult | null> {
-    return this.contentRepository.findById(id);
+  async findContentById(
+    id: number
+  ): Promise<ContentService.FindByIdResult | null> {
+    return this.contentRepository.findById(
+      id
+    ) as Promise<ContentService.FindByIdResult | null>;
   }
 
   async deleteContent(id: number): Promise<void> {
