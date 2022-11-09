@@ -6,9 +6,12 @@ import express, {
   RequestHandler,
 } from 'express';
 import Joi from 'joi';
+import path from 'path';
+import yaml from 'yamljs';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import swaggerUi, { JsonObject } from 'swagger-ui-express';
 import { container, DependencyContainer, InjectionToken } from 'tsyringe';
 import {
   HttpResponse,
@@ -153,6 +156,11 @@ export abstract class ExpressServer {
     };
   }
 
+  private loadSwaggerFile(): JsonObject {
+    const file = path.resolve(__dirname, '..', '..', '..', 'swagger.yaml');
+    return yaml.load(file);
+  }
+
   protected errorHandler(): unknown {
     const errorHandler = container.resolve<ErrorHandlerMiddleware>(
       ErrorHandlerMiddleware
@@ -195,6 +203,13 @@ export abstract class ExpressServer {
       }
     );
 
+    const swaggerDocument = this.loadSwaggerFile();
+
+    app.use(
+      `/swagger-ui`,
+      swaggerUi.serveFiles(swaggerDocument, {}),
+      swaggerUi.setup(swaggerDocument)
+    );
     app.use(buildedRoutes);
     app.use(
       '*',

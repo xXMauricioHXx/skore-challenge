@@ -1,0 +1,377 @@
+openapi: 3.0.3
+info:
+  title: Skore Challenge
+  version: 1.0.0
+  description: Documentação da API.
+servers:
+  - url: http://localhost:3001
+    description: Dev
+paths:
+  /generate-token:
+    post:
+      tags:
+        - Auth Token
+      summary: Gera tokens para acessar as rotas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - levelPermission
+              properties:
+                id:
+                  type: number
+                  description: Id de usuário para geração do token (qualquer número positivo).
+                  example: 1
+                levelPermission:
+                  type: string
+                  enum:
+                    - admin
+                    - normal
+                  description: |
+                    admin - Gera tokens para atualizar, deletar e cadastrar conteúdos;
+                    normal - Gera tokens para ver conteúdos e ver conteúdo por id
+                  example: admin
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Token para autênticação
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibGV2ZWxQZXJtaXNzaW9uIjoiYWRtaW4iLCJpYXQiOjE2Njc5NTQxOTh9.BrqTGTZgUbTtZbLljQ6sKN6jRxVdVsJuRMLfIfylz6k'
+
+  /content:
+    get:
+      tags:
+        - Content
+      summary: Lista todos os conteúdos cadastrados
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: Token de autênticação
+          example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentWithViews'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'AUTHENTICATION_FAILED'
+                    message: 'Authentication failed.'
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Content
+      summary: Cria um conteúdo
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: Token de autênticação
+          example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+                - type
+              properties:
+                name:
+                  type: string
+                  description: Nome do conteúdo
+                  example: 'Devops Ninja'
+                description:
+                  type: string
+                  description: Descrição do conteúdo
+                  example: 'Venha ser um devops ninja.'
+                type:
+                  type: string
+                  enum:
+                    - video
+                    - image
+                    - pdf
+                  description: Tipo de conteúdo.
+                  example: 'video'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'AUTHENTICATION_FAILED'
+                    message: 'Authentication failed.'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'INVALID_CONTENT_TYPE'
+                    message: 'The provided content type does not match with accepted contents.'
+  /content/{id}:
+    get:
+      tags:
+        - Content
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: Token de autênticação
+          example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Id do conteúdo
+      summary: Lista um conteúdo por id
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentWithViews'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'AUTHENTICATION_FAILED'
+                    message: 'Authentication failed.'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'CONTENT_NOT_FOUND'
+                    message: 'Content does not exist or not found.'
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - Content
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: Token de autênticação
+          example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Id do conteúdo
+      summary: Atualiza um conteúdo por id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome do conteúdo
+                  example: 'Devops Ninja'
+                description:
+                  type: string
+                  description: Descrição do conteúdo
+                  example: 'Venha ser um devops ninja.'
+                type:
+                  type: string
+                  enum:
+                    - video
+                    - image
+                    - pdf
+                  description: Tipo de conteúdo.
+                  example: 'video'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentWithViews'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'AUTHENTICATION_FAILED'
+                    message: 'Authentication failed.'
+    delete:
+      tags:
+        - Content
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: Token de autênticação
+          example: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Id do conteúdo
+      summary: Deleta um conteúdo por id
+      responses:
+        '204':
+          description: successful operation
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                OrderNotFeasibleError:
+                  value:
+                    code: 'AUTHENTICATION_FAILED'
+                    message: 'Authentication failed.'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+    Content:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Id do conteúdo
+          example: 1
+        name:
+          type: string
+          description: Nome do conteúdo
+          example: 'Devops Ninja'
+        description:
+          type: string
+          description: Descrição do conteúdo
+          example: 'Venha ser um devops ninja.'
+        type:
+          type: string
+          enum:
+            - video
+            - image
+            - pdf
+          description: Tipo de conteúdo.
+          example: 'video'
+        createdAt:
+          type: string
+          description: Data de criação do conteúdo
+          example: '2022-11-09T14:55:00'
+        updatedAt:
+          type: string
+          description: Data da última atualização do conteúdo
+          example: '2022-11-09T14:55:00'
+    ContentWithViews:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Id do conteúdo
+          example: 1
+        name:
+          type: string
+          description: Nome do conteúdo
+          example: 'Devops Ninja'
+        description:
+          type: string
+          description: Descrição do conteúdo
+          example: 'Venha ser um devops ninja.'
+        type:
+          type: string
+          enum:
+            - video
+            - image
+            - pdf
+          description: Tipo de conteúdo.
+          example: 'video'
+        createdAt:
+          type: string
+          description: Data de criação do conteúdo
+          example: '2022-11-09T14:55:00'
+        updatedAt:
+          type: string
+          description: Data da última atualização do conteúdo
+          example: '2022-11-09T14:55:00'
+        view:
+          type: number
+          description: Total de visualizações do conteúdo
+          example: 10
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
